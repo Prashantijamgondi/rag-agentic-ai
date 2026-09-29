@@ -1,8 +1,9 @@
 from typing import List, TypedDict
 from langgraph.graph import StateGraph, START, END
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_groq import ChatGroq
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_pinecone import PineconeVectorStore
-from src.config import OPENAI_API_KEY, PINECONE_API_KEY, PINECONE_INDEX_NAME
+from src.config import GROQ_API_KEY, PINECONE_API_KEY, PINECONE_INDEX_NAME
 
 class AgentState(TypedDict):
     question: str
@@ -11,10 +12,10 @@ class AgentState(TypedDict):
     score: float
 
 def build_rag_graph(index_name: str):
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=OPENAI_API_KEY)
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     vectorstore = PineconeVectorStore(index_name=index_name, embedding=embeddings, pinecone_api_key=PINECONE_API_KEY)
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, openai_api_key=OPENAI_API_KEY)
+    llm = ChatGroq(model="llama3-8b-8192", temperature=0, groq_api_key=GROQ_API_KEY)
 
     # Define Nodes
     def retrieve_node(state: AgentState):

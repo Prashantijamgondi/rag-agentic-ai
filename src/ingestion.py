@@ -1,8 +1,8 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_pinecone import PineconeVectorStore
-from src.config import OPENAI_API_KEY, PINECONE_API_KEY, PINECONE_INDEX_NAME
+from src.config import PINECONE_API_KEY, PINECONE_INDEX_NAME
 from pinecone import Pinecone, ServerlessSpec
 import os
 
@@ -24,18 +24,18 @@ def run_ingestion(pdf_path: str, index_name: str):
     # Ensure index exists
     pc = Pinecone(api_key=PINECONE_API_KEY)
     if index_name not in pc.list_indexes().names():
-        print(f"Creating Pinecone index '{index_name}'...")
+        print(f"Creating Pinecone index '{index_name}' with dim 384...")
         pc.create_index(
             name=index_name,
-            dimension=1536,
+            dimension=384,  # HuggingFace all-MiniLM-L6-v2 dimension
             metric='cosine',
             spec=ServerlessSpec(cloud='aws', region='us-east-1')
         )
         print("Index created.")
 
     print("Creating embeddings and saving to Pinecone...")
-    # 3. Create embeddings & save to Pinecone
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=OPENAI_API_KEY)
+    # 3. Create embeddings (Local & Free) & save to Pinecone
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     vector_store = PineconeVectorStore.from_documents(
         documents=chunks,
         embedding=embeddings,
