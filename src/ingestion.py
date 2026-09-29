@@ -46,5 +46,6 @@ def run_ingestion(pdf_path: str, index_name: str):
     return vector_store
 
 if __name__ == "__main__":
-    pdf_file_path = os.path.join(os.path.dirname(__dirname__), "data", "Ebook-Agentic-AI.pdf")
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    pdf_file_path = os.path.join(base_dir, "data", "Ebook-Agentic-AI.pdf")
     run_ingestion(pdf_file_path, PINECONE_INDEX_NAME)
