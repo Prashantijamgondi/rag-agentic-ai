@@ -1,8 +1,8 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_pinecone import PineconeVectorStore
-from src.config import PINECONE_API_KEY, PINECONE_INDEX_NAME
+from src.config import PINECONE_API_KEY, PINECONE_INDEX_NAME, HF_TOKEN
 from pinecone import Pinecone, ServerlessSpec
 import os
 
@@ -34,8 +34,8 @@ def run_ingestion(pdf_path: str, index_name: str):
         print("Index created.")
 
     print("Creating embeddings and saving to Pinecone...")
-    # 3. Create embeddings (Local & Free) & save to Pinecone
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    # 3. Create embeddings (API & Free) & save to Pinecone
+    embeddings = HuggingFaceEndpointEmbeddings(model="sentence-transformers/all-MiniLM-L6-v2", huggingfacehub_api_token=HF_TOKEN)
     vector_store = PineconeVectorStore.from_documents(
         documents=chunks,
         embedding=embeddings,

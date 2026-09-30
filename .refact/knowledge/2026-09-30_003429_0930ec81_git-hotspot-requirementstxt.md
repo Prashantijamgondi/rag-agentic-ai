@@ -1,6 +1,6 @@
 ---
-id: 478a6b5a-8339-4b11-9903-11a360b0cbe7
-title: 'Git hotspot: src/ingestion.py'
+id: 29a82e1a-04ac-4819-84bc-dc37cfbb96cf
+title: 'Git hotspot: requirements.txt'
 tags:
 - code
 - git
@@ -8,7 +8,7 @@ tags:
 created: 2026-09-30
 updated: 2026-09-30
 filenames:
-- src/ingestion.py
+- requirements.txt
 links: []
 kind: code
 status: proposed
@@ -16,30 +16,30 @@ superseded_by: null
 deprecated_at: null
 review_after: 2026-09-29
 source_chat_id: null
-created_at: 2026-09-29T18:54:16.338183500+00:00
+created_at: 2026-09-29T19:04:29.299539200+00:00
 summary: null
 description: null
 entities: []
 related_files: []
 related_entities: []
-content_hash: 4161d2810c5d2a94b052504ecee99e06f5cb19c0a3b354dcfcc481afe3623f6e
+content_hash: 1f2b3f27cb18b9e8245833276c5f4a0fd5a9968a16eaa7b75761019c12ee7a67
 source_tool: buddy_memory_lifecycle:git
 source_confidence: 0.7400000095367432
 source_trajectory_id: null
 source_message_range: null
-source_commit: bd1baaa18f5c
+source_commit: 95d51fdc59bd
 topic: null
 last_used_at: null
 use_count: 0
 last_injected_at: null
 dismissed_count: 0
-source_content_hash: 4161d2810c5d2a94b052504ecee99e06f5cb19c0a3b354dcfcc481afe3623f6e
+source_content_hash: 1f2b3f27cb18b9e8245833276c5f4a0fd5a9968a16eaa7b75761019c12ee7a67
 review_needed: true
 occurrences: 0
 ---
 
-Git hotspot: src/ingestion.py
+Git hotspot: requirements.txt
 
-Repeated edits: 2
-Approximate churn: +52 -1
-Latest commit: bd1baaa18f5c
+Repeated edits: 3
+Approximate churn: +16 -0
+Latest commit: 95d51fdc59bd
